@@ -56,6 +56,7 @@ func Loggregator(registry metrics.Registry, options *Options) {
 		exporter.exportMetrics(registry)
 	}
 }
+
 func (e *exporter) exportMetrics(registry metrics.Registry) {
 	dataPoints := e.assembleDataPoints(registry)
 	e.transport.send(dataPoints)

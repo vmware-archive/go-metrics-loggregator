@@ -109,7 +109,50 @@ func instrumentLengthyOperation() {
     })
 }
 ```
+Since metrics are aggregated in go-metrics, each benchmark won't individually emit to the firehose, but they'll be rolled up into derived metrics (https://github.com/rcrowley/go-metrics/blob/master/timer.go#L9)
+
+Emitting the health of the service could look like:
+
+```
+metrics.NewRegisteredFunctionalGauge("health", metrics.DefaultRegistry, func() int64 {
+ c := redisPool.Get()
+ defer c.Close()
+
+ err := c.Ping()
+ if err != nil {
+  return 0
+ }
+
+ return 1
+})
+```
 
 ## 4. Testing metrics
 
 Each go-metric (Gauge, Counter, Timer, Meter, Histogram) is an interface, so they're quite simple to create fakes for and register with the registry before your code calls `GetOrRegister*`. See exporter_test.go for examples.
+
+
+# Metrics best practices
+
+TODO
+
+# Dropsonde format
+
+All go-metrics are converted to either counters or gauges and they are sent through the firehose like so:
+
+```
+events.Envelope{
+ Origin:     proto.String("RedisAgent"),
+ EventType:  events.Envelope_ValueMetric.Enum(),
+ Timestamp:  proto.Int64(1493138903202394827),
+ ValueMetric: &events.ValueMetric{
+  Name:  proto.String("cpu.usage"),
+  Value: proto.Float64(46.45),
+  Unit:  proto.String("percentage"),
+ },
+ Tags: map[string]string{
+  "serviceGuid": "abc-123",
+  "type":        "gauge",
+ },
+}
+```

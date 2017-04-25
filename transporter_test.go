@@ -20,10 +20,6 @@ var _ = Describe("metronTransporter", func() {
 		transporter := newMetronTransporter(&Options{
 			MetronAddress: "127.0.0.1:9863",
 			Origin:        "some origin",
-			Deployment:    "some deployment",
-			Job:           "some job",
-			Index:         "some index",
-			Ip:            "some ip",
 			Tags:          tags,
 		})
 
@@ -41,10 +37,6 @@ var _ = Describe("metronTransporter", func() {
 			Origin:     proto.String("some origin"),
 			EventType:  events.Envelope_ValueMetric.Enum(),
 			Timestamp:  proto.Int64(872828732),
-			Deployment: proto.String("some deployment"),
-			Job:        proto.String("some job"),
-			Index:      proto.String("some index"),
-			Ip:         proto.String("some ip"),
 			ValueMetric: &events.ValueMetric{
 				Name:  proto.String("test-counter"),
 				Value: proto.Float64(123),
@@ -52,7 +44,7 @@ var _ = Describe("metronTransporter", func() {
 			},
 			Tags: map[string]string{
 				"serviceGuid": "abc-123",
-				"type":      "COUNTER",
+				"type":        "COUNTER",
 			},
 		}))
 
@@ -102,6 +94,7 @@ func setup(address string) *testContext {
 		},
 	}
 }
+
 func shouldStop(c chan interface{}) bool {
 	select {
 	case <-c:

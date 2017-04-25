@@ -37,10 +37,6 @@ func Loggregator(registry metrics.Registry, options *Options) {
 		options.MetronAddress = "127.0.0.1:3457"
 	}
 
-	if options.Origin == "" {
-		options.Origin
-	}
-
 	if int64(options.TimeUnit) == 0 {
 		options.TimeUnit = time.Millisecond
 	}

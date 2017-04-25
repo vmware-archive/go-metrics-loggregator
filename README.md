@@ -1,8 +1,7 @@
 This is the `go-metrics` exporter for Loggregator.
 
 
-1. Adding the exporter to your program
------------------------------------
+## 1. Adding the exporter to your program
 
 Add the 2 required packages:
 
@@ -39,8 +38,7 @@ func main() {
 }
 ```
 
-2. Adding a metron agent to your bosh vm
--------------------------------------
+## 2. Adding a metron agent to your bosh vm
 
 ```
 jobs:
@@ -95,8 +93,7 @@ Please see the spec files for more details:
 - https://github.com/cloudfoundry/loggregator/blob/develop/jobs/metron_agent/spec
 
 
-3. Instrumenting your program
------------------------------
+## 3. Instrumenting your program
 
 Any of the go-metrics metrics will work. If you'd like to, for instance, time a potentially lengthy operation:
 
@@ -113,7 +110,6 @@ func instrumentLengthyOperation() {
 }
 ```
 
-4. Testing go-metrics
----------------------
+## 4. Testing metrics
 
 Each go-metric (Gauge, Counter, Timer, Meter, Histogram) is an interface, so they're quite simple to create fakes for and register with the registry before your code calls `GetOrRegister*`. See exporter_test.go for examples.

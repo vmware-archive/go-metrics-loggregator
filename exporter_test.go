@@ -17,9 +17,9 @@ package loggregator
 import (
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
-	metricFakes "github.com/pivotal-cf/go-metrics-pcf/go-metrics-pcffakes"
 	"github.com/rcrowley/go-metrics"
 	"time"
+	"github.com/pivotal-cf/go-metrics-loggregator/fakes"
 )
 
 var _ = Describe("`go-metrics` exporter for Loggregator", func() {
@@ -45,7 +45,7 @@ var _ = Describe("`go-metrics` exporter for Loggregator", func() {
 		tc := setup()
 		tc.fakeTimeHelper.returnValue = 123
 
-		fakeCounter := new(metricFakes.FakeCounter)
+		fakeCounter := new(fakes.FakeCounter)
 		fakeCounter.SnapshotReturns(fakeCounter)
 		fakeCounter.CountReturns(6)
 
@@ -68,7 +68,7 @@ var _ = Describe("`go-metrics` exporter for Loggregator", func() {
 		tc := setup()
 		tc.fakeTimeHelper.returnValue = 123
 
-		fakeGauge := new(metricFakes.FakeGauge)
+		fakeGauge := new(fakes.FakeGauge)
 		fakeGauge.SnapshotReturns(fakeGauge)
 		fakeGauge.ValueReturns(17)
 
@@ -91,7 +91,7 @@ var _ = Describe("`go-metrics` exporter for Loggregator", func() {
 		tc := setup()
 		tc.fakeTimeHelper.returnValue = 123
 
-		fakeGaugeFloat64 := new(metricFakes.FakeGaugeFloat64)
+		fakeGaugeFloat64 := new(fakes.FakeGaugeFloat64)
 		fakeGaugeFloat64.SnapshotReturns(fakeGaugeFloat64)
 		fakeGaugeFloat64.ValueReturns(32.2)
 
@@ -114,7 +114,7 @@ var _ = Describe("`go-metrics` exporter for Loggregator", func() {
 		tc := setup()
 		tc.fakeTimeHelper.returnValue = 123
 
-		fakeMeter := new(metricFakes.FakeMeter)
+		fakeMeter := new(fakes.FakeMeter)
 		fakeMeter.SnapshotReturns(fakeMeter)
 		fakeMeter.CountReturns(1)
 		fakeMeter.Rate1Returns(2)
@@ -186,7 +186,7 @@ var _ = Describe("`go-metrics` exporter for Loggregator", func() {
 		tc := setup()
 		tc.fakeTimeHelper.returnValue = 123
 
-		fakeHistogram := new(metricFakes.FakeHistogram)
+		fakeHistogram := new(fakes.FakeHistogram)
 		fakeHistogram.SnapshotReturns(fakeHistogram)
 		fakeHistogram.CountReturns(1)
 		fakeHistogram.MeanReturns(2)
@@ -296,7 +296,7 @@ var _ = Describe("`go-metrics` exporter for Loggregator", func() {
 		tc := setup()
 		tc.fakeTimeHelper.returnValue = 123
 
-		fakeTimer := new(metricFakes.FakeTimer)
+		fakeTimer := new(fakes.FakeTimer)
 		fakeTimer.SnapshotReturns(fakeTimer)
 		fakeTimer.CountReturns(1)
 		fakeTimer.Rate1Returns(2)

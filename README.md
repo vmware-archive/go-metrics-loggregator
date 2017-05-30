@@ -1,5 +1,6 @@
-This is the `go-metrics` exporter for Loggregator.
+This is the `go-metrics` exporter for Loggregator. The goal of this library is to make it easy for CF/bosh component developers to define and emit metrics to the Loggregator firehose using a standard metrics library ([go-metrics](https://github.com/rcrowley/go-metrics)) as opposed to Loggregator's [dropsonde](https://github.com/cloudfoundry/dropsonde).
 
+go-metrics aggregates metrics in memory and this exporter emits them on a specified time interval, defaulting to once per minute. The advantage to using go-metrics over dropsonde is that it provides many more metric types. The additional types, such as Timer, expose more information than a standard counter or gauge, such as percentiles (75th, 90th, 95th, 99th by default) and rates (1 minute, 5, 10, 15, and mean). The documentation for dropwizard (the java library that go-metrics is based on) can be found [here](http://metrics.dropwizard.io/3.2.2/getting-started.html).
 
 ## 1. Adding the exporter to your program
 
@@ -7,7 +8,9 @@ Add the 2 required packages:
 
 ```
 go get github.com/rcrowley/go-metrics
-git clone git@github.com/pivotal-cf/go-metrics-loggregator $GOPATH/src/github.com/pivotal-cf/go-metrics-loggregator
+go get github.com/pivotal-cf/go-metrics-loggregator
+go get github.com/cloudfoundry/sonde-go
+go get github.com/gogo/protobuf
 ```
 
 Add to your main.go:

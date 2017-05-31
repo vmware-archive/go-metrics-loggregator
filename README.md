@@ -141,7 +141,7 @@ TODO
 
 # Dropsonde format
 
-All go-metrics are converted to either counters or gauges and they are sent through the firehose like so:
+All go-metrics are converted to dropsonde's "Envelope_ValueMetric" and they are sent through the firehose like so:
 
 ```
 events.Envelope{

@@ -4,7 +4,7 @@ go-metrics aggregates metrics in memory and this exporter emits them on a specif
 
 ## 1. Adding the exporter to your program
 
-Add the 2 required packages:
+Add the 4 required packages:
 
 ```
 go get github.com/rcrowley/go-metrics
